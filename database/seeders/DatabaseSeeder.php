@@ -3,7 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,7 +14,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $category = \App\Models\Category::create(['name' => 'Electronics']);
+        $category = Category::create(['name' => 'Electronics']);
 
         $admin = User::create([
             'name' => 'Admin User',
@@ -29,7 +30,7 @@ class DatabaseSeeder extends Seeder
             'role' => 'user',
         ]);
 
-        \App\Models\Product::create([
+        Product::create([
             'name' => 'Laptop',
             'description' => 'High performance laptop',
             'quantity' => 10,
@@ -38,7 +39,7 @@ class DatabaseSeeder extends Seeder
             'category_id' => $category->id,
         ]);
 
-        \App\Models\Product::create([
+        Product::create([
             'name' => 'Smartphone',
             'description' => 'Latest smartphone',
             'quantity' => 5,
