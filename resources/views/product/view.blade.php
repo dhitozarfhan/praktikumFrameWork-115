@@ -16,34 +16,15 @@
                                 </svg>
                             </a>
                             <div>
-                                <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-100 tracking-tight">Product Details</h2>
-                                <p class="text-sm text-gray-500 dark:text-gray-400 mt-0.5">Viewing product ID: {{ $product->id }}</p>
+                                <h1 class="text-3xl font-bold text-gray-800 dark:text-gray-100 tracking-tight">Product Detail</h1>
+                                <p class="text-base text-gray-500 dark:text-gray-400 mt-1">Viewing product #{{ $product->id }}</p>
                             </div>
                         </div>
 
                         {{-- Action Buttons --}}
-                        <div class="flex items-center gap-2">
-                            @can('update', $product)
-                            <a href="{{ route('product.edit', $product) }}"
-                               class="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-lg border border-amber-200 dark:border-amber-800 text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-900/30 transition">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
-                                </svg>
-                                Edit
-                            </a>
-
-                            <form action="{{ route('product.delete', $product->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit"
-                                        class="inline-flex items-center gap-1.5 px-3 py-2 text-sm font-medium rounded-lg border border-red-200 dark:border-red-800 text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 transition">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                                    </svg>
-                                    Delete
-                                </button>
-                            </form>
-                            @endcan
+                        <div class="flex items-center gap-3">
+                            <x-edit-product :url="route('product.edit', $product)" :label="'Edit'"/>
+                            <x-delete-product :action="route('product.delete', $product->id)" :label="'Delete'"/>
                         </div>
                     </div>
 
@@ -51,37 +32,37 @@
                     <div class="rounded-xl border border-gray-200 dark:border-gray-700 divide-y divide-gray-100 dark:divide-gray-700">
 
                         {{-- Name --}}
-                        <div class="flex items-center px-5 py-4">
-                            <div class="w-32 shrink-0 text-sm text-gray-500 dark:text-gray-400">Product Name</div>
-                            <div class="text-sm font-semibold text-gray-800 dark:text-gray-100">{{ $product->name }}</div>
+                        <div class="flex items-center px-5 py-5">
+                            <div class="w-40 shrink-0 text-base text-gray-500 dark:text-gray-400">Product Name</div>
+                            <div class="text-lg font-bold text-gray-800 dark:text-gray-100">{{ $product->name }}</div>
                         </div>
 
                         {{-- Quantity --}}
-                        <div class="flex items-center px-5 py-4">
-                            <div class="w-32 shrink-0 text-sm text-gray-500 dark:text-gray-400">Quantity</div>
+                        <div class="flex items-center px-5 py-5">
+                            <div class="w-40 shrink-0 text-base text-gray-500 dark:text-gray-400">Quantity</div>
                             <div>
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $product->quantity > 10 ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400' : 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-400' }}">
-                                    {{ $product->quantity }} ({{ $product->quantity > 10 ? 'In Stock' : 'Low Stock' }})
+                                <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium {{ $product->quantity > 0 ? 'bg-green-100/10 text-green-500 border border-green-500/20' : 'bg-red-100/10 text-red-500 border border-red-500/20' }}">
+                                    {{ $product->quantity }} In Stock
                                 </span>
                             </div>
                         </div>
 
                         {{-- Price --}}
-                        <div class="flex items-center px-5 py-4">
-                            <div class="w-32 shrink-0 text-sm text-gray-500 dark:text-gray-400">Price</div>
-                            <div class="text-sm font-mono font-semibold text-gray-800 dark:text-gray-100">
+                        <div class="flex items-center px-5 py-5">
+                            <div class="w-40 shrink-0 text-base text-gray-500 dark:text-gray-400">Price</div>
+                            <div class="text-lg font-bold text-gray-800 dark:text-gray-100">
                                 Rp {{ number_format($product->price, 0, ',', '.') }}
                             </div>
                         </div>
 
                         {{-- Owner --}}
-                        <div class="flex items-center px-5 py-4">
-                            <div class="w-32 shrink-0 text-sm text-gray-500 dark:text-gray-400">Owner</div>
-                            <div class="flex items-center gap-2">
-                                <div class="h-7 w-7 rounded-full bg-indigo-100 dark:bg-indigo-900/50 flex items-center justify-center text-indigo-600 dark:text-indigo-300 text-xs font-bold uppercase">
+                        <div class="flex items-center px-5 py-5">
+                            <div class="w-40 shrink-0 text-base text-gray-500 dark:text-gray-400">Owner</div>
+                            <div class="flex items-center gap-3">
+                                <div class="h-9 w-9 rounded-full bg-indigo-500/20 flex items-center justify-center text-indigo-400 text-sm font-bold uppercase border border-indigo-500/30">
                                     {{ substr($product->user->name ?? '?', 0, 1) }}
                                 </div>
-                                <span class="text-sm text-gray-800 dark:text-gray-100">{{ $product->user->name ?? '-' }}</span>
+                                <span class="text-lg font-medium text-gray-800 dark:text-gray-100">{{ $product->user->name ?? '-' }}</span>
                             </div>
                         </div>
 
