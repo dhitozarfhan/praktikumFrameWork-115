@@ -8,6 +8,11 @@ class AboutController extends Controller
 {
     public function index()
     {
-        return view('about');
+        return view('about', [
+            'nama' => 'Erindhito Nur Fauzan',
+            'nim' => '20230140115',
+            'prodi' => 'Teknologi Informasi',
+            'hobi' => 'Coding / Ngoding'
+        ]);
     }
 }

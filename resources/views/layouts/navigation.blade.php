@@ -22,8 +22,14 @@
                        class="{{ request()->routeIs('product.index*') ? 'text-indigo-400 border-b-2 border-indigo-500 pb-1' : 'text-gray-400 hover:text-gray-200 transition' }}">
                         Product
                     </a>
-                    <a href="/about" 
-                       class="{{ request()->path() === 'about' ? 'text-indigo-400 border-b-2 border-indigo-500 pb-1' : 'text-gray-400 hover:text-gray-200 transition' }}">
+                    @can('manage-category')
+                    <a href="{{ route('category.index') }}" 
+                       class="{{ request()->routeIs('category.index*') ? 'text-indigo-400 border-b-2 border-indigo-500 pb-1' : 'text-gray-400 hover:text-gray-200 transition' }}">
+                        Category
+                    </a>
+                    @endcan
+                    <a href="{{ route('about') }}" 
+                       class="{{ request()->routeIs('about') ? 'text-indigo-400 border-b-2 border-indigo-500 pb-1' : 'text-gray-400 hover:text-gray-200 transition' }}">
                         About
                     </a>
                 </div>

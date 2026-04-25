@@ -29,6 +29,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/product/edit/{product}', [ProductController::class, 'edit'])->name('product.edit');
     Route::delete('/product/delete/{product}', [ProductController::class, 'delete'])->name('product.delete');
 
+    // Category Page
+    Route::middleware('can:manage-category')->group(function () {
+        Route::resource('category', \App\Http\Controllers\CategoryController::class);
+    });
+
     Route::get('/products/export', [ProductController::class, 'export'])
         ->name('products.export')
         ->middleware('can:export-product');

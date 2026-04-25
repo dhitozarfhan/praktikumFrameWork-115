@@ -68,21 +68,21 @@
                             </div>
                         </div>
 
-                        {{-- User Selection (Hidden or Styled as per SS if needed, but SS doesn't show it Clearly) --}}
+                        {{-- Category --}}
                         <div class="space-y-2">
-                            <label for="user_id" class="block text-sm font-semibold text-gray-300 ml-1">
-                                Owner
+                            <label for="category_id" class="block text-sm font-semibold text-gray-300 ml-1">
+                                Category
                             </label>
-                            <select id="user_id" name="user_id"
-                                    class="w-full px-6 py-4 rounded-2xl bg-slate-900/50 border {{ $errors->has('user_id') ? 'border-red-500/50' : 'border-white/5' }} focus:border-indigo-500/50 focus:ring-0 text-white transition-all duration-300 appearance-none">
-                                <option value="" disabled>Select Owner</option>
-                                @foreach($users as $user)
-                                    <option value="{{ $user->id }}" {{ old('user_id', $product->user_id) == $user->id ? 'selected' : '' }}>
-                                        {{ $user->name }}
+                            <select id="category_id" name="category_id"
+                                    class="w-full px-6 py-4 rounded-2xl bg-slate-900/50 border {{ $errors->has('category_id') ? 'border-red-500/50' : 'border-white/5' }} focus:border-indigo-500/50 focus:ring-0 text-white transition-all duration-300 appearance-none">
+                                <option value="" disabled>Select Category</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}" {{ old('category_id', $product->category_id) == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}
                                     </option>
                                 @endforeach
                             </select>
-                            @error('user_id')
+                            @error('category_id')
                                 <p class="mt-2 text-sm text-red-500 font-medium ml-1">{{ $message }}</p>
                             @enderror
                         </div>
